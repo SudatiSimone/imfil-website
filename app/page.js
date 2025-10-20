@@ -120,7 +120,7 @@ export default function Page() {
         <div className="mx-auto max-w-7xl px-4 py-12">
           <div className="flex items-end justify-between mb-4">
             <h2 className="text-2xl md:text-3xl font-semibold">I nostri lavori</h2>
-            <a href="#" className="text-sm underline underline-offset-4 hover:opacity-70">Apri Instagram</a>
+            <a href="https://www.instagram.com/feelhair_?igsh=OG91eDhicnRlYzBi" className="text-sm underline underline-offset-4 hover:opacity-70">Apri Instagram</a>
           </div>
 
           <div
@@ -233,7 +233,7 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div>© {new Date().getFullYear()} Feel Hair</div>
           <div className="flex gap-4">
-            <a href="#" className="hover:opacity-70">Instagram</a>
+            <a href="https://www.instagram.com/feelhair_?igsh=OG91eDhicnRlYzBi" className="hover:opacity-70">Instagram</a>
             <a href="#" className="hover:opacity-70">Google</a>
             <a href="#" className="hover:opacity-70">Privacy</a>
           </div>
