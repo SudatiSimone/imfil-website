@@ -98,22 +98,32 @@ export default function Page() {
         <img
           src="/salone.jpeg"
           alt="Interno del salone Feel Hair"
-          className="w-full h-[60vh] sm:h-[70vh] object-cover"
+          className="w-full h-[42vh] sm:h-[55vh] lg:h-[70vh] object-cover object-center"
         />
       </section>
-
       {/* Orari */}
-      <section id="orari" className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6">Orari di apertura</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <section id="orari" className="mx-auto max-w-6xl px-3 py-8 md:px-4 md:py-12">
+        <h2 className="text-xl md:text-3xl font-semibold mb-4 md:mb-6">Orari d&apos;apertura</h2>
+
+        {/* Mobile: 2 colonne compatte — Desktop/Tablet: identico a prima */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
           {HOURS.map((h) => (
-            <div key={h.day} className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-              <div className="font-medium">{h.day}</div>
-              <div className="text-neutral-600">{h.time}</div>
+            <div
+              key={h.day}
+              className="rounded-xl md:rounded-2xl border border-neutral-200 bg-white p-2 md:p-4 shadow-sm"
+            >
+              {/* Mobile: giorno a sx, orario a dx su una riga — da md in su torna a colonna */}
+              <div className="flex items-center justify-between gap-2 md:block">
+                <div className="text-sm md:text-base font-medium">{h.day}</div>
+                <div className="text-xs md:text-sm text-neutral-600 md:mt-1 whitespace-nowrap">
+                  {h.time}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </section>
+
 
       {/* Lavori – GRIGLIA 4x, card uguali più compatte */}
       <section id="lavori" className="bg-white/70 border-y border-neutral-200">
@@ -125,21 +135,26 @@ export default function Page() {
 
           <div
             ref={trackRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+            className="flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none]"
           >
+            {/* nasconde la scrollbar su iOS/Android */}
+            <style jsx>{`
+              div::-webkit-scrollbar { display: none; }
+            `}</style>
+
             {WORKS.map((src, i) => (
-              <div key={i} className="work-card snap-start min-w-[90%] sm:min-w-[50%] lg:min-w-[33%]">
-                <div className="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow">
-                  <img
-                    src={src}
-                    alt={`Lavoro ${i + 1}`}
-                    className="w-full aspect-[2/3] object-cover"
-                    loading="lazy"
-                  />
+              <div
+                key={i}
+                className="work-card snap-start min-w-[48%] sm:min-w-[32%] lg:min-w-[24%]"
+                aria-label={`Lavoro ${i + 1}`}
+              >
+                <div className="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+                  <img src={src} alt={`Lavoro ${i + 1}`} className="w-full aspect-[2/3] object-cover" loading="lazy" />
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
