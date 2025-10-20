@@ -115,28 +115,34 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Lavori – carosello 3 a 3 auto-scroll */}
+      {/* Lavori – GRIGLIA 4x, card uguali più compatte */}
       <section id="lavori" className="bg-white/70 border-y border-neutral-200">
-        <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mx-auto max-w-7xl px-4 py-12">
           <div className="flex items-end justify-between mb-4">
             <h2 className="text-2xl md:text-3xl font-semibold">I nostri lavori</h2>
             <a href="#" className="text-sm underline underline-offset-4 hover:opacity-70">Apri Instagram</a>
           </div>
+
           <div
             ref={trackRef}
             className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
           >
             {WORKS.map((src, i) => (
-              <div key={i} className="work-card min-w-[85%] sm:min-w-[60%] lg:min-w-[45%] snap-start">
+              <div key={i} className="work-card snap-start min-w-[90%] sm:min-w-[50%] lg:min-w-[33%]">
                 <div className="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow">
-                  {/* aspect ratio più verticale */}
-                  <img src={src} alt={`Lavoro ${i + 1}`} className="w-full aspect-[2/3] object-cover" />
+                  <img
+                    src={src}
+                    alt={`Lavoro ${i + 1}`}
+                    className="w-full aspect-[2/3] object-cover"
+                    loading="lazy"
+                  />
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Formazione */}
       <section id="formazione" className="mx-auto max-w-6xl px-4 py-12">
@@ -196,7 +202,7 @@ export default function Page() {
             </figure>
           ))}
         </div>
-        <p className="mt-6 text-sm text-neutral-500">Integrazione dinamica con Google Reviews pronta: basta aggiungere l'ID luogo.</p>
+        <p className="mt-6 text-sm text-neutral-500">Integrazione dinamica con Google Reviews pronta: basta aggiungere l&aposID luogo.</p>
       </section>
 
       {/* Contatti */}
