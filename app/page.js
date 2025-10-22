@@ -231,6 +231,35 @@ export default function Page() {
         </div>
       </section>
 
+            {/* Chi sono / In salone */}
+      <section id="chi-sono" className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-2 gap-8 items-center">
+          <div className="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+            <img
+              src="/lavoro.jpg"     
+              alt="Al lavoro in salone"
+              className="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold">Chi sono</h2>
+            <p className="mt-3 text-neutral-700">
+              Credo in tagli su misura e colori che valorizzano il viso. In questa foto mi vedi
+              durante un servizio di taglio: precisione, ascolto e cura del dettaglio.
+            </p>
+            <div className="mt-5 flex gap-3">
+              <a href="#servizi" className="rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">
+                Scopri i servizi
+              </a>
+              <a href="#lavori" className="rounded-xl px-4 py-2 border border-neutral-300 text-sm hover:bg-neutral-100">
+                Guarda i lavori
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* Formazione */}
       <section id="formazione" className="mx-auto max-w-6xl px-4 py-12">
         <h2 className="text-2xl md:text-3xl font-semibold mb-6">Percorso di formazione</h2>
