@@ -52,6 +52,9 @@ function StarRow({ n }) {
 }
 
 export default function Page() {
+  // --- NEW: stato per hamburger menu ---
+  const [menuOpen, setMenuOpen] = useState(false);
+
   // Carousel auto-scroll: mostra 3 foto alla volta su desktop, 1–2 su mobile
   const trackRef = useRef(null);
   const [index, setIndex] = useState(0);
@@ -75,12 +78,42 @@ export default function Page() {
     el.scrollTo({ left: clamped * step, behavior: 'smooth' });
   }, [index]);
 
+  // --- NEW: chiudi menu con ESC ---
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
     <main className="min-h-screen bg-neutral-50 text-neutral-900">
       {/* Header: titolo fuori dall'immagine per NON coprire il salone */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
         <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+          {/* Brand */}
           <div className="text-2xl font-semibold tracking-wide">Feel Hair</div>
+
+          {/* Bottone hamburger (mostrato solo su mobile) */}
+          <button
+            type="button"
+            className="sm:hidden inline-flex items-center justify-center rounded-xl p-2 border border-neutral-300 hover:bg-neutral-100"
+            aria-controls="mobile-menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            )}
+            <span className="sr-only">Apri/chiudi menu</span>
+          </button>
+
+          {/* Nav desktop */}
           <nav className="hidden sm:flex gap-6 text-sm">
             <a href="#orari" className="hover:opacity-70">Orari</a>
             <a href="#lavori" className="hover:opacity-70">Lavori</a>
@@ -89,7 +122,47 @@ export default function Page() {
             <a href="#recensioni" className="hover:opacity-70">Recensioni</a>
             <a href="#contatti" className="hover:opacity-70">Contatti</a>
           </nav>
-          <a href="#contatti" className="rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">Prenota</a>
+
+          {/* CTA desktop (nascosta su mobile per lasciare spazio all'hamburger) */}
+          <a href="#contatti" className="hidden sm:inline-block rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">Prenota</a>
+        </div>
+
+        {/* --- NEW: pannello mobile a scomparsa --- */}
+        <div
+          id="mobile-menu"
+          className={`sm:hidden overflow-hidden transition-[max-height] duration-300 ${menuOpen ? 'max-h-96' : 'max-h-0'}`}
+        >
+          <nav className="px-4 pb-3 pt-2 border-t border-neutral-200 bg-white">
+            <ul className="flex flex-col gap-1 text-sm">
+              {[
+                ['#orari','Orari'],
+                ['#lavori','Lavori'],
+                ['#formazione','Formazione'],
+                ['#servizi','Servizi'],
+                ['#recensioni','Recensioni'],
+                ['#contatti','Contatti'],
+              ].map(([href,label]) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className="block rounded-lg px-3 py-2 hover:bg-neutral-100"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+              <li className="pt-1">
+                <a
+                  href="#contatti"
+                  className="block text-center rounded-xl px-4 py-2 bg-neutral-900 text-white hover:bg-neutral-800"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Prenota
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
 
@@ -101,6 +174,7 @@ export default function Page() {
           className="w-full h-[42vh] sm:h-[55vh] lg:h-[70vh] object-cover object-center"
         />
       </section>
+
       {/* Orari */}
       <section id="orari" className="mx-auto max-w-6xl px-3 py-8 md:px-4 md:py-12">
         <h2 className="text-xl md:text-3xl font-semibold mb-4 md:mb-6">Orari d&apos;apertura</h2>
@@ -123,7 +197,6 @@ export default function Page() {
           ))}
         </div>
       </section>
-
 
       {/* Lavori – GRIGLIA 4x, card uguali più compatte */}
       <section id="lavori" className="bg-white/70 border-y border-neutral-200">
@@ -157,7 +230,6 @@ export default function Page() {
 
         </div>
       </section>
-
 
       {/* Formazione */}
       <section id="formazione" className="mx-auto max-w-6xl px-4 py-12">
@@ -228,7 +300,7 @@ export default function Page() {
             <div className="mt-4 space-y-2 text-neutral-700">
               <div><strong>Telefono:</strong> <a href="tel:+39000000000" className="underline underline-offset-4">+39 000 000 000</a></div>
               <div><strong>WhatsApp:</strong> <a href="https://wa.me/39000000000" className="underline underline-offset-4">Scrivici</a></div>
-              <div><strong>Indirizzo:</strong> Via Esempio 1, Città</div>
+              <div><strong>Indirizzo:</strong> Via Loghetto, Cortenuova (BG)</div>
               <div className="text-sm text-neutral-500">Orari soggetti a variazioni festive.</div>
             </div>
           </div>
@@ -237,7 +309,7 @@ export default function Page() {
               title="Mappa"
               className="w-full h-72"
               loading="lazy"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11547.3508!2d9.19!3d45.46!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDUuNDYgOS4xOQ!5e0!3m2!1sit!2sit!4v00000000000"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.5010886650853!2d9.789346836412022!3d45.54024450886443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781413f49682869%3A0xb715ddabf60e271d!2sVia%20Loghetto%2C%2024050%20Cortenuova%20BG!5e0!3m2!1sit!2sit!4v1761152559498!5m2!1sit!2sit"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
