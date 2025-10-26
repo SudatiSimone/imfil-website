@@ -185,11 +185,13 @@ export default function Page() {
                 </li>
               ))}
               <li className="pt-1">
-                <a
-                  href="#contatti"
-                  className="block text-center rounded-xl px-4 py-2 bg-neutral-900 text-white hover:bg-neutral-800"
-                  onClick={() => setMenuOpen(false)}
-                >
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PRENOTAZIONE_MSG)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center rounded-xl px-4 py-2 bg-neutral-900 text-white hover:bg-neutral-800"
+                onClick={() => setMenuOpen(false)}
+              >
                   Prenota
                 </a>
               </li>
