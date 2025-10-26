@@ -8,21 +8,38 @@ import React, { useEffect, useRef, useState } from 'react';
 // Dati demo – sostituisci con i tuoi
 const HOURS = [
   { day: 'Lunedì', time: 'Chiuso' },
-  { day: 'Martedì', time: '09:00 – 18:30' },
-  { day: 'Mercoledì', time: '09:00 – 18:30' },
-  { day: 'Giovedì', time: '09:00 – 18:30' },
-  { day: 'Venerdì', time: '09:00 – 18:30' },
-  { day: 'Sabato', time: '09:00 – 17:00' },
+  { day: 'Martedì', time: 'Chiuso' },
+  { day: 'Mercoledì', time: 'Chiuso' },
+  { day: 'Giovedì', time: '08:30 – 20:00' },
+  { day: 'Venerdì', time: '08:30 – 19:00' },
+  { day: 'Sabato', time: '08:00 – 17:30' },
   { day: 'Domenica', time: 'Chiuso' },
 ];
 
 const SERVICES = [
-  { name: 'Taglio donna', price: 'da €25' },
-  { name: 'Colore', price: 'da €40' },
-  { name: 'Piega', price: '€18' },
-  { name: 'Balayage', price: 'da €80' },
+  { name: 'Taglio donna' },
+  { name: 'Taglio uomo e barba' },
+  { name: 'Colore' },
+  { name: 'Piega'},
+  { name: 'Balayage' },
   { name: 'Trattamenti specifici', price: 'su richiesta' },
 ];
+
+const PREVENTIVO_MSG =
+  "Ciao! Vorrei richiedere una consulenza.\n" +
+  "Nome: ____\n" +
+  "Servizio richiesto: ____\n" +
+  "Lunghezza capelli: ____\n" +
+  "Preferenza giorno/orario: ____";
+
+const PRENOTAZIONE_MSG =
+  "Ciao! Vorrei richiedere una prenotazione.\n" +
+  "Nome: ____\n" +
+  "Servizio richiesto: ____\n" +
+  "Preferenza giorno/orario: ____" + 
+  "In alternativa quali sarebbero le disponibilità a seconda delle mie esigenze che sono _____ ?";
+
+const WHATSAPP_NUMBER = '393347712249';
 
 // Inserisci qui URL foto lavori (o lasciale così per test). Sostituibili con feed Instagram.
 const WORKS = [
@@ -33,6 +50,14 @@ const WORKS = [
   '/capelli5.jpg',
   '/capelli6.jpg',
   '/capelli7.jpg',
+  '/capelli8.jpg',
+  '/capelli9.jpg',
+  '/capelli10.jpg',
+  '/capelli11.jpg',
+  '/capelli12.jpg',
+  '/capelli13.jpg',
+  '/capelli14.jpg',
+  '/capelli15.jpg',
 ];
 
 const REVIEWS = [
@@ -91,7 +116,7 @@ export default function Page() {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
         <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
           {/* Brand */}
-          <div className="text-2xl font-semibold tracking-wide">Feel Hair</div>
+          <div className="text-2xl font-semibold tracking-wide">Feel Hair Studio</div>
 
           {/* Bottone hamburger (mostrato solo su mobile) */}
           <button
@@ -124,7 +149,14 @@ export default function Page() {
           </nav>
 
           {/* CTA desktop (nascosta su mobile per lasciare spazio all'hamburger) */}
-          <a href="#contatti" className="hidden sm:inline-block rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">Prenota</a>
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PRENOTAZIONE_MSG)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-block rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800"
+          >
+            Prenota
+            </a>
         </div>
 
         {/* --- NEW: pannello mobile a scomparsa --- */}
@@ -177,7 +209,14 @@ export default function Page() {
 
       {/* Orari */}
       <section id="orari" className="mx-auto max-w-6xl px-3 py-8 md:px-4 md:py-12">
-        <h2 className="text-xl md:text-3xl font-semibold mb-4 md:mb-6">Orari d&apos;apertura</h2>
+
+        <div className="mb-4 md:mb-6">
+          <h2 className="text-xl md:text-3xl font-semibold">Orari d&apos;apertura</h2>
+          <p className="text-sm md:text-base text-neutral-500">
+            <span className="block">Prenotazione solo su appuntamento.</span>
+            <span className="block">Gli orari possono essere soggetti a variazioni nei giorni festivi.</span>
+          </p>
+        </div>
 
         {/* Mobile: 2 colonne compatte — Desktop/Tablet: identico a prima */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
@@ -244,8 +283,7 @@ export default function Page() {
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold">Chi sono</h2>
             <p className="mt-3 text-neutral-700">
-              Credo in tagli su misura e colori che valorizzano il viso. In questa foto mi vedi
-              durante un servizio di taglio: precisione, ascolto e cura del dettaglio.
+              Credo fortemente nella personalizzazione di ogni servizio. Un taglio sartoriale che valorizzi i lineamenti del tuo viso. Un colore autentico che tenga conto non solo di esaltare la bellezza individuale, la forma del viso e la stagione cromatica di appartenenza,ma anche i desideri della cliente. La consulenza è senza dubbio il cuore di ogni servizio attraverso la quale non si tratta solo di ascoltare per rispondere ma di ascoltare per comprendere.
             </p>
             <div className="mt-5 flex gap-3">
               <a href="#servizi" className="rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">
@@ -277,7 +315,7 @@ export default function Page() {
           <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="text-sm text-neutral-500">Oggi</div>
             <div className="mt-1 font-medium">Ricerca & formazione continua</div>
-            <p className="mt-2 text-neutral-600">Workshop su trattamenti, cura cute e capelli.</p>
+            <p className="mt-2 text-neutral-600">Workshop su trattamenti per il benessere della cute e dei capelli.</p>
           </div>
         </div>
       </section>
@@ -298,9 +336,17 @@ export default function Page() {
             <div className="rounded-2xl border border-neutral-200 bg-white p-6">
               <h3 className="font-medium">Note</h3>
               <p className="mt-2 text-sm text-neutral-600">
-                I prezzi possono variare in base alla lunghezza e alle esigenze del capello. Preventivo gratuito in salone.
+                I prezzi possono variare in base alla lunghezza e alle esigenze del capello. 
+                Per creare una personalizzazione accurata del servizio è necessario una consulenza che può avvenire gratuitamente in salone, via whatsapp o DM su instagram.
               </p>
-              <a href="#contatti" className="mt-4 inline-block rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800">Richiedi preventivo</a>
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PREVENTIVO_MSG)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block rounded-xl px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-800"
+                >
+                Richiedi consulenza
+                </a>
             </div>
           </div>
         </div>
@@ -327,8 +373,8 @@ export default function Page() {
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold">Contatti & dove siamo</h2>
             <div className="mt-4 space-y-2 text-neutral-700">
-              <div><strong>Telefono:</strong> <a href="tel:+39000000000" className="underline underline-offset-4">+39 000 000 000</a></div>
-              <div><strong>WhatsApp:</strong> <a href="https://wa.me/39000000000" className="underline underline-offset-4">Scrivici</a></div>
+              <div><strong>Telefono:</strong> <a href="tel:+393347712249" className="underline underline-offset-4">+39 3347712249</a></div>
+              <div><strong>WhatsApp:</strong> <a href="https://wa.me/393347712249" className="underline underline-offset-4">Scrivici</a></div>
               <div><strong>Indirizzo:</strong> Via Loghetto, Cortenuova (BG)</div>
               <div className="text-sm text-neutral-500">Orari soggetti a variazioni festive.</div>
             </div>
@@ -338,7 +384,7 @@ export default function Page() {
               title="Mappa"
               className="w-full h-72"
               loading="lazy"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.5010886650853!2d9.789346836412022!3d45.54024450886443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781413f49682869%3A0xb715ddabf60e271d!2sVia%20Loghetto%2C%2024050%20Cortenuova%20BG!5e0!3m2!1sit!2sit!4v1761152559498!5m2!1sit!2sit"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.543683234045!2d9.7898102!3d45.5393875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478141b5f43b0397%3A0x36e923a7c90847cc!2sFeel%20Hair%20Studio!5e0!3m2!1sit!2sit!4v1761485822671!5m2!1sit!2sit"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
